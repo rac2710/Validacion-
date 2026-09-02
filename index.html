@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificando Certificado...</title>
+  <script>
+    window.onload = function() {
+      // 1. Obtener el código enviado desde la URL del QR (?codigo=...)
+      var urlParams = new URLSearchParams(window.location.search);
+      var codigo = urlParams.get('codigo') || '';
+
+      // 2. URL oficial de tu Apps Script
+      var scriptUrl = "https://script.google.com/macros/s/AKfycby6oDFqjhpI8hbvUPRkRVTV-361a4Rwq-RhRCTvV8_VQ2ATlaGPI5bjSXj7LzmSrkPG/exec";
+
+      // 3. Redirigir limpiamente
+      if (codigo.trim() !== "") {
+        window.location.replace(scriptUrl + "#codigo=" + encodeURIComponent(codigo));
+      } else {
+        window.location.replace(scriptUrl);
+      }
+    };
+  </script>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding-top: 50px; background-color: #f4f6f9;">
+  <h3>Fundación Niño Zuliano</h3>
+  <p>Redirigiendo al sistema de verificación...</p>
+</body>
+</html>
