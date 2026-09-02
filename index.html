@@ -20,21 +20,21 @@
   <div class="card">
     <h2>Fundación Niño Zuliano</h2>
     <p>Haz clic en el siguiente botón para consultar la validez oficial del certificado en nuestro sistema.</p>
-    <a id="btnVerificar" href="#" class="btn">Verificar Certificado</a>
+
+    <!-- target="_blank" obliga a la app del QR a abrir Chrome/Safari real -->
+    <a id="btnVerificar" href="#" target="_blank" rel="noopener noreferrer" class="btn">Verificar Certificado</a>
+    
     <div class="footer">Sistema Oficial de Validaciones</div>
   </div>
 
   <script>
     window.onload = function() {
-      // 1. Obtener el código de la URL
       var urlParams = new URLSearchParams(window.location.search);
       var codigo = urlParams.get('codigo') || '';
 
-      // 2. URL de tu Web App en Google Script
       var scriptUrl = "https://script.google.com/macros/s/AKfycby6oDFqjhpI8hbvUPRkRVTV-361a4Rwq-RhRCTvV8_VQ2ATlaGPI5bjSXj7LzmSrkPG/exec";
       var destino = codigo.trim() !== "" ? scriptUrl + "#codigo=" + encodeURIComponent(codigo) : scriptUrl;
 
-      // 3. Asignar el enlace al botón
       var boton = document.getElementById('btnVerificar');
       boton.href = destino;
     };
