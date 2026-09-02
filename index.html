@@ -10,7 +10,7 @@
     .card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 100%; border-top: 6px solid #1a73e8; }
     h2 { color: #1a73e8; font-size: 20px; margin-bottom: 10px; }
     p { color: #5f6368; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
-    .btn { display: block; width: 100%; background-color: #1a73e8; color: #ffffff; padding: 14px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px; border: none; cursor: pointer; }
+    .btn { display: block; width: 100%; background-color: #1a73e8; color: #ffffff; padding: 14px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px; border: none; cursor: pointer; text-align: center; }
     .btn:hover { background-color: #1557b0; }
     .footer { margin-top: 15px; font-size: 12px; color: #9aa0a6; }
   </style>
@@ -21,7 +21,7 @@
     <h2>Fundación Niño Zuliano</h2>
     <p>Haz clic en el siguiente botón para consultar la validez oficial del certificado en nuestro sistema.</p>
 
-    <!-- target="_blank" obliga a la app del QR a abrir Chrome/Safari real -->
+    <!-- target="_blank" con rel="noopener" fuerza la apertura en el navegador principal -->
     <a id="btnVerificar" href="#" target="_blank" rel="noopener noreferrer" class="btn">Verificar Certificado</a>
     
     <div class="footer">Sistema Oficial de Validaciones</div>
@@ -29,12 +29,17 @@
 
   <script>
     window.onload = function() {
+      // 1. Obtener el código de la URL (?codigo=...)
       var urlParams = new URLSearchParams(window.location.search);
       var codigo = urlParams.get('codigo') || '';
 
-      var scriptUrl = "https://script.google.com/macros/s/AKfycby6oDFqjhpI8hbvUPRkRVTV-361a4Rwq-RhRCTvV8_VQ2ATlaGPI5bjSXj7LzmSrkPG/exec";
+      // 2. URL de tu Web App recién actualizada
+      var scriptUrl = "https://script.google.com/macros/s/AKfycbzyPUyOYoFOcgZJ7S8MOKcwLukPJpep73c5ApdDwtnuh4Eihmeo-TkPGztnH2d1gtj_/exec";
+
+      // 3. Pasar el parámetro con # evita bloqueos en navegadores que no sean Chrome
       var destino = codigo.trim() !== "" ? scriptUrl + "#codigo=" + encodeURIComponent(codigo) : scriptUrl;
 
+      // 4. Asignar el enlace al botón
       var boton = document.getElementById('btnVerificar');
       boton.href = destino;
     };
