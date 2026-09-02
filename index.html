@@ -3,27 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verificando Certificado...</title>
+  <title>Verificación de Certificado - Fundación Niño Zuliano</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 80vh; }
+    .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; max-width: 400px; border-top: 5px solid #1a73e8; }
+    h2 { color: #1a73e8; margin-bottom: 10px; font-size: 20px; }
+    p { color: #5f6368; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+    .btn { display: inline-block; background-color: #1a73e8; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px; transition: background 0.2s; }
+    .btn:hover { background-color: #1557b0; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Fundación Niño Zuliano</h2>
+    <p>Estás a un paso de consultar la validez de este certificado en la base de datos oficial.</p>
+    <a id="verificarBtn" href="#" class="btn">Verificar Certificado</a>
+  </div>
+
   <script>
     window.onload = function() {
-      // 1. Obtener el código enviado desde la URL del QR (?codigo=...)
+      // 1. Capturar parámetro del código desde la URL (?codigo=...)
       var urlParams = new URLSearchParams(window.location.search);
       var codigo = urlParams.get('codigo') || '';
 
-      // 2. URL oficial de tu Apps Script
+      // 2. Dirección oficial del Script
       var scriptUrl = "https://script.google.com/macros/s/AKfycby6oDFqjhpI8hbvUPRkRVTV-361a4Rwq-RhRCTvV8_VQ2ATlaGPI5bjSXj7LzmSrkPG/exec";
+      var finalUrl = codigo.trim() !== "" ? scriptUrl + "#codigo=" + encodeURIComponent(codigo) : scriptUrl;
 
-      // 3. Redirigir limpiamente
-      if (codigo.trim() !== "") {
-        window.location.replace(scriptUrl + "#codigo=" + encodeURIComponent(codigo));
-      } else {
-        window.location.replace(scriptUrl);
-      }
+      // 3. Asignar enlace al botón
+      var btn = document.getElementById('verificarBtn');
+      btn.href = finalUrl;
+
+      // 4. Redirección suave después de 1.5 segundos
+      setTimeout(function() {
+        window.location.href = finalUrl;
+      }, 1500);
     };
   </script>
-</head>
-<body style="font-family: Arial, sans-serif; text-align: center; padding-top: 50px; background-color: #f4f6f9;">
-  <h3>Fundación Niño Zuliano</h3>
-  <p>Redirigiendo al sistema de verificación...</p>
+
 </body>
 </html>
